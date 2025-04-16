@@ -1,3 +1,3 @@
 
-# Run lint on staged files
-pnpm lint 
+# Run lint-staged
+npx lint-staged 

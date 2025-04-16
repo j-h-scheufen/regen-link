@@ -19,9 +19,18 @@
   "devDependencies": {
     "husky": "^9.1.6",
     "typescript": "^5.3.3",
-    "eslint": "^9.22",
-    "prettier": "^3.1.1",
+    "@biomejs/biome": "1.5.3",
     "@commitlint/cli": "^18.4.3",
-    "@commitlint/config-conventional": "^18.4.3"
+    "@commitlint/config-conventional": "^18.4.3",
+    "lint-staged": "^15.2.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "biome check --apply",
+      "biome format --write"
+    ],
+    "*.{json,md}": [
+      "biome format --write"
+    ]
   }
 }
