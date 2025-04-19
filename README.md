@@ -1,6 +1,14 @@
 # regen-link
 A registry and map of the global regenerative movement
 
+## Environment Variables
+
+The following environment variables are used in this project:
+
+- `NEXT_PUBLIC_APP_URL`: The base URL of the application. This is required for both development and production environments.
+- `NEXTAUTH_SECRET`: (Optional) The secret used for NextAuth.js. This is required if you are using authentication features.
+
+Ensure these variables are set in your `.env` file or in your deployment environment.
 
 ## Install Log
 
