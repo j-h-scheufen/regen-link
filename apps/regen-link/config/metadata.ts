@@ -1,5 +1,6 @@
-import { siteConfig } from '@/config/site';
 import type { Metadata, Viewport } from 'next';
+
+import { siteConfig } from '@/config/site';
 
 export const sharedMetadata: Metadata = {
   title: {

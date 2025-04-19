@@ -1,12 +1,20 @@
 import { fontInter } from '@/config/fonts';
 import clsx from 'clsx';
 import type { Metadata } from 'next';
+
+import { Providers } from '@/app/providers';
+import { sharedMetadata, viewport } from '@/config/metadata';
 import './globals.css';
-import { sharedMetadata, viewport } from './metadata';
-import { Providers } from './providers';
 
 export const metadata: Metadata = sharedMetadata;
 export { viewport };
+
+// NEXTJS provides these params to pages (layouts do NOT receive searchParams!), but no official interface exists, yet.
+// https://github.com/vercel/next.js/discussions/46131
+export type NextPageProps<ParamType = string> = {
+  params: { locale: ParamType };
+  searchParams?: { [key: string]: string | string[] | undefined };
+};
 
 export default function RootLayout({
   children,
