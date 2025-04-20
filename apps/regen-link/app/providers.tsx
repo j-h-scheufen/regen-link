@@ -2,8 +2,14 @@
 
 import { HeroUIProvider } from '@heroui/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { SessionProvider } from 'next-auth/react';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import { SnackbarProvider } from 'notistack';
 import { useState } from 'react';
+import { WagmiProvider } from 'wagmi';
+
+import { QueryConfig } from '@/config/constants';
+import wagmiConfig from '@/config/wagmi';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -11,7 +17,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       new QueryClient({
         defaultOptions: {
           queries: {
-            staleTime: 60 * 1000, // 1 minute
+            staleTime: QueryConfig.staleTimeDefault,
             refetchOnWindowFocus: false,
           },
         },
@@ -19,12 +25,18 @@ export function Providers({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <HeroUIProvider>
-        <NextThemesProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-        </NextThemesProvider>
-      </HeroUIProvider>
-    </QueryClientProvider>
+    <SessionProvider>
+      <SnackbarProvider>
+        <QueryClientProvider client={queryClient}>
+          <WagmiProvider config={wagmiConfig}>
+            <HeroUIProvider>
+              <NextThemesProvider attribute="class" defaultTheme="system" enableSystem>
+                {children}
+              </NextThemesProvider>
+            </HeroUIProvider>
+          </WagmiProvider>
+        </QueryClientProvider>
+      </SnackbarProvider>
+    </SessionProvider>
   );
 }
