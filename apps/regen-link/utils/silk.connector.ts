@@ -29,7 +29,6 @@ export default function silk(options?: InitSilkOptions) {
   let silkProvider: SilkEthereumProviderInterface | null = null;
 
   return createConnector<SilkEthereumProviderInterface>((config) => {
-    console.log('Silk Connector Config:', config);
     return {
       id: 'silk',
       name: 'Silk Connector',
@@ -115,7 +114,7 @@ export default function silk(options?: InitSilkOptions) {
       },
 
       async switchChain({ chainId }) {
-        console.log('Switching chain to ID', chainId);
+        console.info('Switching chain to ID', chainId);
         try {
           const chain = config.chains.find((x) => x.id === chainId);
           if (!chain) throw new ChainNotConfiguredError();

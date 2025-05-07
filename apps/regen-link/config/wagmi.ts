@@ -14,7 +14,7 @@ declare module 'wagmi' {
 const baseUrl = getBaseUrl();
 
 // Get origin safely for both client and server environments
-const getOrigin = () => {
+export const getOrigin = () => {
   if (typeof window !== 'undefined') {
     return window.location.origin;
   }
@@ -22,18 +22,16 @@ const getOrigin = () => {
   return baseUrl;
 };
 
-console.log('Origin:', getOrigin());
-
 export const silkInitOptions: InitSilkOptions = {
   useStaging: true,
-  // config: {
-  //   styles: { darkMode: false },
-  //   allowedSocials: ['Google'],
-  //   authenticationMethods: ['email', 'social'],
-  // },
+  config: {
+    styles: { darkMode: true },
+    // allowedSocials: ['google'],
+    // authenticationMethods: ['email', 'social'],
+  },
   project: {
-    name: 'Quilombo',
-    // logo: `${baseUrl}/quilombo-icon-512x512.png`,
+    name: 'Regen Link',
+    // logo: '',
     // origin: getOrigin(),
     //    projectId:
     // termsOfServiceUrl: `${baseUrl}/terms-of-service`,

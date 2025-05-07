@@ -36,7 +36,7 @@ export default function RootLayout({
     <html lang={lang}>
       <body
         className={clsx(
-          'dark min-h-screen bg-background antialiased',
+          'dark min-h-screen antialiased bg-gradient',
           fontSora.variable,
           fontInter.variable,
           fontFigtree.variable,

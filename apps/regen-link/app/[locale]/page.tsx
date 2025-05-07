@@ -13,7 +13,7 @@ export default async function Home({ params: { locale } }: NextPageProps) {
   const { t } = await createTranslation(lang, 'home');
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-4 py-6 sm:px-6 bg-gradient-to-b from-gray-900 to-gray-950">
+    <main className="min-h-screen flex flex-col items-center justify-center px-4 py-6 sm:px-6">
       <div className="w-full max-w-[800px] mx-auto text-center">
         <div className="min-h-[120px] flex flex-col justify-center">
           <h1 className="page-title">
