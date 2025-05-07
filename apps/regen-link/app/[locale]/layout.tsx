@@ -1,8 +1,8 @@
-import { fontInter } from '@/config/fonts';
 import clsx from 'clsx';
 import type { Metadata } from 'next';
 
 import { Providers } from '@/app/providers';
+import { fontFigtree, fontInter, fontSora } from '@/config/fonts';
 import { sharedMetadata, viewport } from '@/config/metadata';
 import { ALL_LOCALES, fallbackLng, isSupportedLanguage } from '../i18n/settings';
 import './globals.css';
@@ -36,8 +36,11 @@ export default function RootLayout({
     <html lang={lang}>
       <body
         className={clsx(
-          'dark min-h-screen bg-background font-sans antialiased',
-          fontInter.variable
+          'dark min-h-screen bg-background antialiased',
+          fontSora.variable,
+          fontInter.variable,
+          fontFigtree.variable,
+          'font-sans'
         )}
       >
         <Providers>

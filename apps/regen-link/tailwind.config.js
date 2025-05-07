@@ -19,7 +19,7 @@ module.exports = withTV({
     },
     extend: {
       fontFamily: {
-        // You can add custom fonts here if needed
+        sans: ['var(--font-figtree)', 'var(--font-sora)'],
       },
     },
   },
