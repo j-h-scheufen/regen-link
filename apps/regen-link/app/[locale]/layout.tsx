@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 
 import { Providers } from '@/app/providers';
 import { sharedMetadata, viewport } from '@/config/metadata';
+import { ALL_LOCALES, fallbackLng, isSupportedLanguage } from '../i18n/settings';
 import './globals.css';
 
 export const metadata: Metadata = sharedMetadata;
@@ -16,15 +17,28 @@ export type NextPageProps<ParamType = string> = {
   searchParams?: { [key: string]: string | string[] | undefined };
 };
 
+export async function generateStaticParams() {
+  return ALL_LOCALES.map((lng) => ({ lng }));
+}
+
 export default function RootLayout({
+  params: { locale },
   children,
 }: {
   children: React.ReactNode;
+  params: {
+    locale: string;
+  };
 }) {
+  const lang = isSupportedLanguage(locale) ? locale : fallbackLng;
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={lang}>
       <body
-        className={clsx('min-h-screen bg-background font-sans antialiased', fontInter.variable)}
+        className={clsx(
+          'dark min-h-screen bg-background font-sans antialiased',
+          fontInter.variable
+        )}
       >
         <Providers>
           <div className="relative flex min-h-screen flex-col">

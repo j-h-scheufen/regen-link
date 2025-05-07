@@ -1,8 +1,9 @@
-import { Button, Card, CardBody, Spacer } from '@heroui/react';
+import { Button, Card, CardBody, Link, Spacer } from '@heroui/react';
 
 import type { NextPageProps } from '@/app/[locale]/layout';
 import { createTranslation } from '@/app/i18n/server';
 import { type SupportedLanguage, fallbackLng, isSupportedLanguage } from '@/app/i18n/settings';
+import { PATHS } from '@/config/constants';
 
 export default async function Home({ params: { locale } }: NextPageProps) {
   const lang: SupportedLanguage = isSupportedLanguage(locale)
@@ -24,7 +25,7 @@ export default async function Home({ params: { locale } }: NextPageProps) {
           <Spacer y={4} />
 
           <div className="flex gap-4">
-            <Button color="primary" size="lg" radius="full">
+            <Button as={Link} href={PATHS.login} color="primary" size="lg" radius="full">
               {t('home.getStarted')}
             </Button>
             <Button variant="bordered" size="lg" radius="full">

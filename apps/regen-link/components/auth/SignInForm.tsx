@@ -1,12 +1,14 @@
 'use client';
 
+import { useTranslation } from '@/app/i18n/client';
+import type { SupportedLanguage } from '@/app/i18n/settings';
+import useAuth from '@/hooks/useAuth';
 import { Button } from '@heroui/react';
 import { useSession } from 'next-auth/react';
 import { useAccount } from 'wagmi';
 
-import useAuth from '@/hooks/useAuth';
-
-const SignInForm = () => {
+const SignInForm = ({ lang }: { lang: SupportedLanguage }) => {
+  const { t } = useTranslation(lang, 'auth');
   const { data: session } = useSession();
   const { address, isConnecting, isConnected } = useAccount();
   const {
@@ -16,41 +18,28 @@ const SignInForm = () => {
   } = useAuth();
 
   return (
-    <div className="flex flex-col gap-2 sm:gap-3 max-w-sm mx-auto items-center">
-      <h2 className="text-3xl text-default-700 sm:text-default-800 mb-2 sm:mb-4">Login</h2>
+    <div className="flex flex-col items-center gap-4">
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('auth.welcome')}</h1>
+
       {!address && (
-        <div className="flex flex-col gap-4 sm:gap-5">
-          <p>Click the button to connect your Silk account.</p>
-          <Button
-            size="lg"
-            color="primary"
-            variant="ghost"
-            className="w-full mt-2"
-            onPress={connect}
-            isLoading={loading || isConnecting}
-          >
-            Connect with Silk
+        <>
+          <p className="text-gray-600 dark:text-gray-300">{t('auth.connectExplainer')}</p>
+          <Button size="lg" color="primary" onPress={connect} isLoading={loading || isConnecting}>
+            {t('auth.connectWallet')}
           </Button>
-        </div>
+        </>
       )}
+
       {address && isConnected && !session && (
-        <div className="flex flex-col gap-2 sm:gap-3 align-center">
-          <p className="text-center">
-            Your Silk account is connected. Please sign the message to log in.
-          </p>
-          <Button
-            size="lg"
-            color="primary"
-            variant="solid"
-            className="w-full mt-2"
-            onPress={() => signIn()}
-            isLoading={loading}
-          >
-            Sign In
+        <>
+          <p className="text-gray-600 dark:text-gray-300">{t('auth.signInExplainer')}</p>
+          <Button size="lg" color="primary" onPress={() => signIn()} isLoading={loading}>
+            {t('auth.signIn')}
           </Button>
-        </div>
+        </>
       )}
-      {error && <p className="text-red-500 text-sm mt-2 text-center">{error.message}</p>}
+
+      {error && <p className="text-danger mt-4">{error.message}</p>}
     </div>
   );
 };

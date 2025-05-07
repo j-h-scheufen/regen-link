@@ -32,7 +32,7 @@ const useSignIn = () => {
   const { disconnect } = useDisconnect();
   const { signMessageAsync } = useSignMessage();
   const params = useSearchParams();
-  const callbackUrl = params.get('callbackUrl') || PATHS.profile;
+  const callbackUrl = params.get('callbackUrl') || PATHS.dashboard;
 
   const fetchNonce = async () => {
     try {

@@ -23,11 +23,8 @@ export const linkBaseUrls = [
 
 export const PATHS = {
   login: '/auth/login',
-  search: '/search',
+  dashboard: '/dashboard',
   profile: '/profile',
-  admin: '/admin',
-  users: '/users',
-  groups: '/groups',
   settings: '/settings',
 };
 
