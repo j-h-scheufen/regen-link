@@ -26,9 +26,7 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-  params: {
-    locale: string;
-  };
+  params: { locale: string };
 }) {
   const lang = isSupportedLanguage(locale) ? locale : fallbackLng;
 
@@ -44,8 +42,8 @@ export default function RootLayout({
         )}
       >
         <Providers>
-          <div className="relative flex min-h-screen flex-col">
-            <main className="flex-grow">{children}</main>
+          <div className="relative flex min-h-screen flex-col items-center">
+            <main className="flex-grow max-w-[800px]">{children}</main>
           </div>
         </Providers>
       </body>
