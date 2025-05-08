@@ -7,18 +7,20 @@ import { PATHS } from './config/constants';
 
 acceptLanguage.languages([...ALL_LOCALES]);
 
-const publicPathsRegex = new RegExp(
-  // Match root, auth paths, and localized versions of both
-  `^(?:/(${ALL_LOCALES.join('|')})?/?(?:$|auth/.*))`
-);
+const publicPathsRegex = /^(?:\/|\/auth\/.*)$/;
 
+/**
+ * Tries to determine the preferred language of the user which is then used for
+ * internal routing. The 'i18n' cookie supersedes the `Accept-Language` header.
+ * If all fails, the fallback language is returned.
+ * @param request
+ * @returns
+ */
 function getPreferredLanguage(request: NextRequest): string {
   const cookieLang = request.cookies.get(cookieName)?.value;
-  return (
-    acceptLanguage.get(cookieLang) ||
-    acceptLanguage.get(request.headers.get('Accept-Language')) ||
-    fallbackLng
-  );
+  return cookieLang
+    ? acceptLanguage.get(cookieLang) || fallbackLng
+    : acceptLanguage.get(request.headers.get('Accept-Language')) || fallbackLng;
 }
 
 /**
@@ -34,26 +36,17 @@ export default withAuth(
 
     const prefLang = getPreferredLanguage(request);
 
-    // 1. Check if path is public
+    // Check if path is public
     const isPublicPath = publicPathsRegex.test(pathname);
     if (!isPublicPath) {
       const token = await getToken({ req: request });
       if (!token) {
-        const loginPath = prefLang === fallbackLng ? PATHS.login : `/${prefLang}${PATHS.login}`;
-        return NextResponse.redirect(new URL(loginPath, request.url));
+        return NextResponse.redirect(new URL(PATHS.login, request.url));
       }
     }
 
-    const pathnameHasLocale = ALL_LOCALES.some(
-      (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-    );
-    // 2. Handle path rewrite to default language for no-locale paths
-    if (!pathnameHasLocale) {
-      console.log('no valid locale prefix, redirecting to', `/${prefLang}${pathname}`);
-      return NextResponse.rewrite(new URL(`/${prefLang}${pathname}`, request.url));
-    }
-
-    return NextResponse.next();
+    // Always rewrite to add locale internally
+    return NextResponse.rewrite(new URL(`/${prefLang}${pathname}`, request.url));
   },
   {
     callbacks: {
