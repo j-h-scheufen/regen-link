@@ -15,9 +15,17 @@ The following environment variables are used in this project:
 - `NEXTAUTH_URL`: The base URL of the NextAuth server.
 - `NEXTAUTH_SECRET`: The secret used for NextAuth.js. Generate a new secret using `openssl rand -base64 32`.
   
-Ensure these variables are set in your `.env` file or in your deployment environment. You can copy `.env.example` to `.env.local` to get started.
+Ensure these variables are set in your `.env` file or in your deployment environment.
 
 ## Installation and Runtime
+
+Copy the `.env.example` file to `.env.local` and fill in the required values.
+
+```bash
+cp .env.example .env.local
+```
+
+Install dependencies and run the development server.
 
 ```bash
 pnpm install
