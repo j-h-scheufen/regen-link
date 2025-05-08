@@ -1,4 +1,5 @@
 import { Button, Link } from '@heroui/react';
+import { Trans } from 'react-i18next/TransWithoutContext';
 
 import type { NextPageProps } from '@/app/[locale]/layout';
 import { createTranslation } from '@/app/i18n/server';
@@ -16,8 +17,13 @@ export default async function Home({ params: { locale } }: NextPageProps) {
     <section className="h-full flex flex-col justify-center">
       <div className="min-h-[120px] flex flex-col justify-center">
         <h1 className="page-title">
-          Welcome to
-          <br className="sm:hidden" /> <span className="whitespace-nowrap">Regen Link</span>
+          <Trans
+            t={t}
+            i18nKey="home.title"
+            components={{
+              nbsp: <span className="whitespace-nowrap" />,
+            }}
+          />
         </h1>
       </div>
 

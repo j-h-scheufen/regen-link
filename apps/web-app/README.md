@@ -7,6 +7,11 @@ A starter app for web3 projects consisting of a NextJS app using
 - [Human Wallet](https://wallet.human.tech/) as embedded wallet (no seed phrase required)
 - [React-i18next](https://react.i18next.com/) for for I18N support
 
+The application implements a home page, a login page, and a protected dashboard page.
+The user has to log in via signing a SIWE message with their Human Wallet in order to access the dashboard.
+
+This template covers the onboarding flow of a web3 application by providing users with an embedded wallet and authentication.
+
 ## Environment Variables
 
 The following environment variables are used in this project:
