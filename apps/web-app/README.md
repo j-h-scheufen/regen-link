@@ -25,6 +25,8 @@ pnpm build
 pnpm dev
 ```
 
+Open the app in your browser at `http://localhost:3000`.
+
 ## Notes
 
 The project was forked from another app [Regen Link](https://github.com/j-h-scheufen/regen-link) which is why you might find some remnants of it in the codebase, e.g. the logos and favicons in the public folder.
