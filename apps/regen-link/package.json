@@ -18,6 +18,8 @@
     "@heroui/theme": "^2.0.0",
     "@react-aria/ssr": "^3.9.5",
     "@react-aria/visually-hidden": "^3.8.15",
+    "@silk-wallet/silk-interface-core": "^0.4.0",
+    "@silk-wallet/silk-wallet-sdk": "^0.4.0",
     "@tanstack/react-query": "^5.56.2",
     "accept-language": "^3.0.20",
     "axios": "^1.7.5",
@@ -30,12 +32,16 @@
     "jotai": "^2.10.0",
     "lodash": "^4.17.21",
     "next": "14.2.16",
-    "next-auth": "^4.24.8",
+    "next-auth": "^4.24.11",
     "next-themes": "^0.3.0",
+    "notistack": "^3.0.2",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-i18next": "^15.4.1",
-    "tailwind-merge": "^2.5.2"
+    "siwe": "^3.0.0",
+    "tailwind-merge": "^2.5.2",
+    "viem": "^2.27.2",
+    "wagmi": "^2.14.16"
   },
   "devDependencies": {
     "@biomejs/biome": "1.5.3",
