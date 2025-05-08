@@ -7,10 +7,13 @@ A starter app for web3 projects consisting of a NextJS app using
 - [Human Wallet](https://wallet.human.tech/) as embedded wallet (no seed phrase required)
 - [React-i18next](https://react.i18next.com/) for for I18N support
 
+This starter app covers the onboarding flow of a web3 application by providing users with an embedded wallet and authentication.
+
 The application implements a home page, a login page, and a protected dashboard page.
 The user has to log in via signing a SIWE message with their Human Wallet in order to access the dashboard.
 
-This template covers the onboarding flow of a web3 application by providing users with an embedded wallet and authentication.
+Localization cannot be chosen by the user, but is automatically detected either via a cookie or the `Accept-Language` header.
+This means the app will always show a non-localized URL while the user's browser language determines which language is served.
 
 ## Environment Variables
 
