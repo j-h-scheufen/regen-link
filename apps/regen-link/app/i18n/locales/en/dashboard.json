@@ -1,7 +1,7 @@
 {
   "dashboard": {
-    "welcome": "Welcome to Your Dashboard",
-    "description": "Manage your regenerative projects and connections here.",
+    "welcome": "Dashboard",
+    "description": "Manage your regenerative connections here.",
     "logout": "Sign Out"
   }
 }

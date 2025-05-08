@@ -1,14 +1,24 @@
-import { getServerSession } from 'next-auth';
+'use client';
+
+import { Button } from '@heroui/react';
+import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
-import { Suspense } from 'react';
+import { useAccount } from 'wagmi';
 
 import { type NextPageProps } from '@/app/[locale]/layout';
+import { useTranslation } from '@/app/i18n/client';
 import { type SupportedLanguage, fallbackLng, isSupportedLanguage } from '@/app/i18n/settings';
-import SignInForm from '@/components/auth/SignInForm';
 import { PATHS } from '@/config/constants';
+import useAuth from '@/hooks/useAuth';
 
-export default async function LoginPage({ params: { locale } }: NextPageProps) {
-  const session = await getServerSession();
+export default function LoginPage({ params: { locale } }: NextPageProps) {
+  const { data: session } = useSession();
+  const { address, isConnecting, isConnected } = useAccount();
+  const {
+    signIn,
+    connect,
+    state: { loading, error },
+  } = useAuth();
 
   if (session) {
     redirect(PATHS.dashboard);
@@ -18,13 +28,49 @@ export default async function LoginPage({ params: { locale } }: NextPageProps) {
     ? (locale as SupportedLanguage)
     : fallbackLng;
 
+  const { t } = useTranslation(lang, 'auth');
+
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-4 py-6 sm:px-6">
-      <Suspense fallback={<div>Loading...</div>}>
-        <div className="w-full max-w-[800px] mx-auto">
-          <SignInForm lang={lang} />
-        </div>
-      </Suspense>
-    </main>
+    <section className="pt-16 sm:pt-24">
+      <div className="min-h-[120px]">
+        <h1 className="page-title">{t('auth.title')}</h1>
+      </div>
+
+      {!address && (
+        <>
+          <p className="page-explainer">{t('auth.connectExplainer')}</p>
+          <div className="mt-24 sm:mt-32">
+            <Button
+              className="primary-button"
+              size="lg"
+              radius="full"
+              onPress={connect}
+              isLoading={loading || isConnecting}
+            >
+              {t('auth.connectWallet')}
+            </Button>
+          </div>
+        </>
+      )}
+
+      {address && isConnected && !session && (
+        <>
+          <p className="page-explainer">{t('auth.signInExplainer')}</p>
+          <div className="mt-24 sm:mt-32">
+            <Button
+              className="primary-button"
+              size="lg"
+              radius="full"
+              onPress={() => signIn()}
+              isLoading={loading}
+            >
+              {t('auth.signIn')}
+            </Button>
+          </div>
+        </>
+      )}
+
+      {error && <p className="text-danger mt-4">{error.message}</p>}
+    </section>
   );
 }

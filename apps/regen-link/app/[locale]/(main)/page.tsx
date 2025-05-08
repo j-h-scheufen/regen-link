@@ -13,7 +13,7 @@ export default async function Home({ params: { locale } }: NextPageProps) {
   const { t } = await createTranslation(lang, 'home');
 
   return (
-    <section className="flex flex-col flex-grow justify-center">
+    <section className="h-full flex flex-col justify-center">
       <div className="min-h-[120px] flex flex-col justify-center">
         <h1 className="page-title">
           Welcome to

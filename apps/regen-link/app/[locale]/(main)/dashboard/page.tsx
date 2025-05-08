@@ -16,19 +16,18 @@ export default function DashboardPage({ params: { locale } }: NextPageProps) {
   const { logout } = useAuth();
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-4 py-6 sm:px-6">
-      <div className="w-full max-w-[800px] mx-auto text-center">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-          {t('dashboard.welcome')}
-        </h1>
-        <p className="mt-2 text-gray-600 dark:text-gray-300">{t('dashboard.description')}</p>
-
-        <div className="mt-8">
-          <Button color="danger" variant="light" onPress={logout}>
-            {t('dashboard.logout')}
-          </Button>
-        </div>
+    <section className="pt-16 sm:pt-24">
+      <div className="min-h-[120px]">
+        <h1 className="page-title">{t('dashboard.welcome')}</h1>
       </div>
-    </main>
+
+      <p className="page-explainer">{t('dashboard.description')}</p>
+
+      <div className="mt-24 sm:mt-32">
+        <Button className="primary-button" size="lg" radius="full" onPress={logout}>
+          {t('dashboard.logout')}
+        </Button>
+      </div>
+    </section>
   );
 }

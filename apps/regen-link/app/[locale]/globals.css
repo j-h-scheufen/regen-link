@@ -4,13 +4,13 @@
 
 @layer components {
   .page-title {
-    @apply text-5xl xs:text-6xl sm:text-5xl md:text-6xl 
+    @apply text-5xl sm:text-5xl md:text-6xl 
       font-sora font-bold 
       leading-[1.1]
       pb-2
-      bg-gradient-to-b from-primary-300 via-primary-600 to-primary-400 
+      bg-gradient-to-b from-primary-100 via-primary-600 to-primary-100 
       bg-clip-text text-transparent 
-      drop-shadow-[0_0_30px_rgba(121,217,31,0.3)];
+      drop-shadow-[0_0_30px_rgba(121,217,31,0.6)];
   }
 
   .page-explainer {

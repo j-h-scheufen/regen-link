@@ -1,0 +1,7 @@
+{
+  "dashboard": {
+    "welcome": "Dashboard",
+    "description": "Verwalte deine regenerativen Links hier.",
+    "logout": "Abmelden"
+  }
+}
