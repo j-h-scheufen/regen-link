@@ -1,11 +1,11 @@
 {
-  "name": "regen-link",
+  "name": "web3-starter-app",
   "version": "0.1.0",
   "private": true,
-  "description": "Regen Link Monorepo",
+  "description": "Web3 Starter App Monorepo",
   "license": "MIT",
   "scripts": {
-    "dev:app": "pnpm --filter regen-link dev",
+    "dev:app": "pnpm --filter web-app dev",
     "dev": "pnpm -r dev",
     "lint": "pnpm -r lint",
     "build": "pnpm -r build",
@@ -17,12 +17,12 @@
   },
   "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee",
   "devDependencies": {
-    "husky": "^9.1.6",
-    "typescript": "^5.3.3",
     "@biomejs/biome": "1.5.3",
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
-    "lint-staged": "^15.2.0"
+    "husky": "^9.1.6",
+    "lint-staged": "^15.5.2",
+    "typescript": "^5.8.3"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
