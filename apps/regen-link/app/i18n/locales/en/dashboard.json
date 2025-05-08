@@ -1,0 +1,7 @@
+{
+  "dashboard": {
+    "welcome": "Dashboard",
+    "description": "Manage your regenerative connections here.",
+    "logout": "Sign Out"
+  }
+}

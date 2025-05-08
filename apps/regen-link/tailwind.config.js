@@ -19,7 +19,16 @@ module.exports = withTV({
     },
     extend: {
       fontFamily: {
-        // You can add custom fonts here if needed
+        sans: ['var(--font-figtree)', 'var(--font-sora)'],
+      },
+      colors: {
+        background: {
+          DEFAULT: '#030712', // gray-950
+        },
+      },
+      backgroundImage: {
+        gradient: 'linear-gradient(to bottom, #111827, #030712)', // dark default
+        'light-gradient': 'linear-gradient(to bottom, #f9fafb, #ffffff)', // light mode
       },
     },
   },
@@ -61,6 +70,7 @@ module.exports = withTV({
         },
         light: {
           colors: {
+            background: '#f9fafb',
             primary: {
               DEFAULT: '#7FD92A',
               50: '#1F3A06',
