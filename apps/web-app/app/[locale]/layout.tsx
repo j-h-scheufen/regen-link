@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import { Providers } from '@/app/providers';
 import { fontFigtree, fontInter, fontSora } from '@/config/fonts';
 import { sharedMetadata, viewport } from '@/config/metadata';
-import { ALL_LOCALES, fallbackLng, isSupportedLanguage } from '../i18n/settings';
+import { fallbackLng, isSupportedLanguage } from '../i18n/settings';
 import './globals.css';
 
 export const metadata: Metadata = sharedMetadata;
@@ -17,17 +17,14 @@ export type NextPageProps<ParamType = string> = {
   searchParams?: { [key: string]: string | string[] | undefined };
 };
 
-export async function generateStaticParams() {
-  return ALL_LOCALES.map((lng) => ({ lng }));
-}
-
-export default function RootLayout({
-  params: { locale },
+export default async function RootLayout({
+  params,
   children,
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
+  const locale = (await params).locale;
   const lang = isSupportedLanguage(locale) ? locale : fallbackLng;
 
   return (

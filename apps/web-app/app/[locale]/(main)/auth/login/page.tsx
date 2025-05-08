@@ -7,7 +7,6 @@ import { useAccount } from 'wagmi';
 
 import { type NextPageProps } from '@/app/[locale]/layout';
 import { useTranslation } from '@/app/i18n/client';
-import { type SupportedLanguage, fallbackLng, isSupportedLanguage } from '@/app/i18n/settings';
 import { PATHS } from '@/config/constants';
 import useAuth from '@/hooks/useAuth';
 
@@ -24,11 +23,7 @@ export default function LoginPage({ params: { locale } }: NextPageProps) {
     redirect(PATHS.dashboard);
   }
 
-  const lang: SupportedLanguage = isSupportedLanguage(locale)
-    ? (locale as SupportedLanguage)
-    : fallbackLng;
-
-  const { t } = useTranslation(lang, 'auth');
+  const { t } = useTranslation(locale, 'auth');
 
   return (
     <section className="pt-16 sm:pt-24">

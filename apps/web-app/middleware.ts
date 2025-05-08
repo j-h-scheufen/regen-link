@@ -12,11 +12,6 @@ const publicPathsRegex = new RegExp(
   `^(?:/(${ALL_LOCALES.join('|')})?/?(?:$|auth/.*))`
 );
 
-const validLocalePrefixRegex = new RegExp(
-  // Match any path that starts with a known locale, capture the locale in group 1
-  `^/((${ALL_LOCALES.join('|')}))(?:(/.*)?)$`
-);
-
 function getPreferredLanguage(request: NextRequest): string {
   const cookieLang = request.cookies.get(cookieName)?.value;
   return (
@@ -37,9 +32,6 @@ export default withAuth(
   async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
 
-    // TODO: once there is a protected API, this needs to change
-    if (pathname.startsWith('/api/')) return NextResponse.next();
-
     const prefLang = getPreferredLanguage(request);
 
     // 1. Check if path is public
@@ -52,9 +44,11 @@ export default withAuth(
       }
     }
 
+    const pathnameHasLocale = ALL_LOCALES.some(
+      (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+    );
     // 2. Handle path rewrite to default language for no-locale paths
-    const localePrefix = validLocalePrefixRegex.exec(pathname);
-    if (!localePrefix) {
+    if (!pathnameHasLocale) {
       console.log('no valid locale prefix, redirecting to', `/${prefLang}${pathname}`);
       return NextResponse.rewrite(new URL(`/${prefLang}${pathname}`, request.url));
     }

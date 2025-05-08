@@ -10,7 +10,13 @@ import {
   useTranslation as useTranslationOrg,
 } from 'react-i18next';
 
-import { ALL_LOCALES, type SupportedLanguage, getOptions } from './settings';
+import {
+  ALL_LOCALES,
+  type SupportedLanguage,
+  fallbackLng,
+  getOptions,
+  isSupportedLanguage,
+} from './settings';
 
 const runsOnServerSide = typeof window === 'undefined';
 
@@ -34,14 +40,15 @@ i18next
   });
 
 export function useTranslation(
-  lng: SupportedLanguage,
+  locale: SupportedLanguage | string,
   ns: string,
   options?: UseTranslationOptions<undefined>
 ) {
+  const lang = isSupportedLanguage(locale) ? locale : fallbackLng;
   const instance = useTranslationOrg(ns, options);
   const { i18n } = instance;
-  if (runsOnServerSide && lng && i18n.resolvedLanguage !== lng) {
-    i18n.changeLanguage(lng);
+  if (runsOnServerSide && lang && i18n.resolvedLanguage !== lang) {
+    i18n.changeLanguage(locale);
   } else {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [activeLng, setActiveLng] = useState(i18n.resolvedLanguage);
@@ -52,9 +59,9 @@ export function useTranslation(
     }, [activeLng, i18n.resolvedLanguage]);
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-      if (!lng || i18n.resolvedLanguage === lng) return;
-      i18n.changeLanguage(lng);
-    }, [lng, i18n]);
+      if (!locale || i18n.resolvedLanguage === locale) return;
+      i18n.changeLanguage(locale);
+    }, [locale, i18n]);
   }
   return instance;
 }

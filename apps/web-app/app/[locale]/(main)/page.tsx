@@ -3,15 +3,10 @@ import { Trans } from 'react-i18next/TransWithoutContext';
 
 import type { NextPageProps } from '@/app/[locale]/layout';
 import { createTranslation } from '@/app/i18n/server';
-import { type SupportedLanguage, fallbackLng, isSupportedLanguage } from '@/app/i18n/settings';
 import { PATHS } from '@/config/constants';
 
 export default async function Home({ params: { locale } }: NextPageProps) {
-  const lang: SupportedLanguage = isSupportedLanguage(locale)
-    ? (locale as SupportedLanguage)
-    : fallbackLng;
-
-  const { t } = await createTranslation(lang, 'home');
+  const { t } = await createTranslation(locale, 'home');
 
   return (
     <section className="h-full flex flex-col justify-center">
