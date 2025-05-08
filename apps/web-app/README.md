@@ -46,3 +46,11 @@ Open the app in your browser at `http://localhost:3000`.
 ## Notes
 
 The project was forked from another app [Regen Link](https://github.com/j-h-scheufen/regen-link) which is why you might find some remnants of it in the codebase, e.g. the logos and favicons in the public folder.
+
+Note: At the point of writing this, the Human Wallet v2 is not finally released and the configuration (in `wagmit.ts`) points to the staging environment.
+
+```json
+InitSilkOptions = {
+  useStaging: true
+}
+```
