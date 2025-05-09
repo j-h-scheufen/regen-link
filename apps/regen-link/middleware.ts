@@ -7,13 +7,20 @@ import { PATHS } from './config/constants';
 
 acceptLanguage.languages([...ALL_LOCALES]);
 
+const publicPathsRegex = /^(?:\/|\/auth\/.*)$/;
+
+/**
+ * Tries to determine the preferred language of the user which is then used for
+ * internal routing. The 'i18n' cookie supersedes the `Accept-Language` header.
+ * If all fails, the fallback language is returned.
+ * @param request
+ * @returns
+ */
 function getPreferredLanguage(request: NextRequest): string {
   const cookieLang = request.cookies.get(cookieName)?.value;
-  return (
-    acceptLanguage.get(cookieLang) ||
-    acceptLanguage.get(request.headers.get('Accept-Language')) ||
-    fallbackLng
-  );
+  return cookieLang
+    ? acceptLanguage.get(cookieLang) || fallbackLng
+    : acceptLanguage.get(request.headers.get('Accept-Language')) || fallbackLng;
 }
 
 /**
@@ -27,40 +34,23 @@ export default withAuth(
   async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
 
-    // TODO: once we have protected API, this needs to change
-    // Skip locale handling only for api routes
-    if (pathname.startsWith('/api/')) {
-      return NextResponse.next();
-    }
-
-    // Check for / and both /auth/ and /{lang}/auth/ patterns
-    const isPublicPath =
-      pathname === '/' || pathname.startsWith('/auth/') || /^\/[a-z]{2}\/auth\//.test(pathname);
-
-    // Handle language detection
     const prefLang = getPreferredLanguage(request);
 
-    // Handle auth check before locale handling
+    // Check if path is public
+    const isPublicPath = publicPathsRegex.test(pathname);
     if (!isPublicPath) {
       const token = await getToken({ req: request });
       if (!token) {
-        // Need to redirect to localized login path
-        return NextResponse.redirect(new URL(`/${prefLang}${PATHS.login}`, request.url));
+        return NextResponse.redirect(new URL(PATHS.login, request.url));
       }
     }
 
-    // If the path doesn't start with a locale, add one
-    if (!ALL_LOCALES.some((locale) => pathname.startsWith(`/${locale}`))) {
-      return NextResponse.rewrite(new URL(`/${prefLang}${pathname}`, request.url));
-    }
-
-    return NextResponse.next();
+    // Always rewrite to add locale internally
+    return NextResponse.rewrite(new URL(`/${prefLang}${pathname}`, request.url));
   },
   {
     callbacks: {
-      authorized() {
-        return true; // Skip Next-Auth's built-in auth check
-      },
+      authorized: () => true, // Skip Next-Auth's built-in auth check, see below comments
       // CAUTION: If you want to use the built-in signIn page, you need to prefix it with a locale
       // to avoid a 404 error.
       // pages: {

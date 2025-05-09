@@ -1,7 +1,9 @@
 {
-  "home": {
-    "title": "Welcome to Regen Link",
-    "description": "A registry for regenerative projects, actors, platforms, and communities.",
+  "page": {
+    "title": "Welcome to <nbsp>Regen Link</nbsp>",
+    "description": "A registry for regenerative projects, actors, platforms, and communities."
+  },
+  "button": {
     "getStarted": "Get Started",
     "learnMore": "Learn More"
   }
