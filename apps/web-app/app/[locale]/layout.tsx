@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import type { Metadata } from 'next';
+import type { PropsWithChildren } from 'react';
 
 import { Providers } from '@/app/providers';
 import { fontFigtree, fontInter, fontSora } from '@/config/fonts';
@@ -13,17 +14,11 @@ export { viewport };
 // NEXTJS provides these params to pages (layouts do NOT receive searchParams!), but no official interface exists, yet.
 // https://github.com/vercel/next.js/discussions/46131
 export type NextPageProps<ParamType = string> = {
-  params: { locale: ParamType };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  params: Promise<{ locale: ParamType }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-export default async function RootLayout({
-  params,
-  children,
-}: {
-  children: React.ReactNode;
-  params: Promise<{ locale: string }>;
-}) {
+export default async function RootLayout({ params, children }: PropsWithChildren & NextPageProps) {
   const locale = (await params).locale;
   const lang = isSupportedLanguage(locale) ? locale : fallbackLng;
 

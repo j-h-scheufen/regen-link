@@ -5,12 +5,11 @@ import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { useAccount } from 'wagmi';
 
-import { type NextPageProps } from '@/app/[locale]/layout';
 import { useTranslation } from '@/app/i18n/client';
 import { PATHS } from '@/config/constants';
 import useAuth from '@/hooks/useAuth';
 
-export default function LoginPage({ params: { locale } }: NextPageProps) {
+export default function LoginPage() {
   const { data: session } = useSession();
   const { address, isConnecting, isConnected } = useAccount();
   const {
@@ -23,7 +22,7 @@ export default function LoginPage({ params: { locale } }: NextPageProps) {
     redirect(PATHS.dashboard);
   }
 
-  const { t } = useTranslation(locale, 'auth');
+  const { t } = useTranslation('auth');
 
   return (
     <section className="pt-16 sm:pt-24">

@@ -1,5 +1,6 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import type { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false, // Remove X-Powered-By header for security
   images: {
@@ -15,7 +16,9 @@ const nextConfig = {
   },
   webpack(config) {
     // Handle SVG imports
-    const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.('.svg'));
+    const fileLoaderRule = config.module.rules.find(
+      (rule: { test?: { test?: (path: string) => boolean } }) => rule.test?.test?.('.svg')
+    );
 
     config.module.rules.push(
       // Reapply the existing rule, but only for svg imports ending in ?url
@@ -38,6 +41,9 @@ const nextConfig = {
 
     return config;
   },
+  turbopack: {
+    resolveExtensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '.svg'],
+  },
 };
 
-module.exports = nextConfig;
+export default nextConfig;

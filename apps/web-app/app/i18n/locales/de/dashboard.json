@@ -1,7 +1,9 @@
 {
-  "dashboard": {
-    "welcome": "Dashboard",
-    "description": "Verwalte deine regenerativen Links hier.",
+  "page": {
+    "title": "Dashboard",
+    "description": "Verwalte deine regenerativen Links hier."
+  },
+  "button": {
     "logout": "Abmelden"
   }
 }
