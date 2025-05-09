@@ -1,8 +1,8 @@
-# Web3 Starter App Monorepo
+# Regen Link Monorepo
 
-A monorepo template for web3 projects, currently consisting of a single NextJS app:
+A monorepo for the Regen Link project.
 
-- [Web App](./apps/web-app/README.md)
+- [Regen Link](./apps/regen-link/README.md)
 
 The monorepo is setup with PNPM workspaces, Biome linting/formatting, Husky for git hooks, and commitlint for commit messages.
 

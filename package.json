@@ -5,7 +5,7 @@
   "description": "Web3 Starter App Monorepo",
   "license": "MIT",
   "scripts": {
-    "dev:app": "pnpm --filter web-app dev",
+    "dev:app": "pnpm --filter regen-link dev",
     "dev": "pnpm -r dev",
     "lint": "pnpm -r lint",
     "build": "pnpm -r build",
