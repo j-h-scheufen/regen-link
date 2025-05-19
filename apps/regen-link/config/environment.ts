@@ -2,6 +2,7 @@
 
 type ConfigType = {
   appUrl: string;
+  databaseUrl: string;
   nextAuthSecret?: string;
 };
 
@@ -20,6 +21,7 @@ export const getBaseUrl = () => {
 
 const ENV: ConfigType = {
   appUrl: required(process.env.NEXT_PUBLIC_APP_URL, 'NEXT_PUBLIC_APP_URL'),
+  databaseUrl: required(process.env.DATABASE_URL, 'DATABASE_URL'),
   nextAuthSecret: isServer ? required(process.env.NEXTAUTH_SECRET, 'NEXTAUTH_SECRET') : undefined,
 };
 
