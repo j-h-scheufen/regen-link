@@ -1,5 +1,7 @@
 export const linkTypes = ['twitter', 'facebook', 'instagram', 'linkedin'] as const;
 
+export const entityTypes = ['Project', 'Hub', 'Platform', 'Human'] as const;
+
 export const validFileExtensions = { image: ['jpg', 'gif', 'png', 'jpeg', 'svg', 'webp'] } as const;
 
 export const linkBaseUrls = [

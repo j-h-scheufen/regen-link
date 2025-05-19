@@ -1,52 +1,94 @@
 import { relations } from 'drizzle-orm';
-import { boolean, json, pgTable, text, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
+import {
+  json,
+  pgEnum,
+  pgTable,
+  primaryKey,
+  text,
+  timestamp,
+  uuid,
+  varchar,
+} from 'drizzle-orm/pg-core';
 
-export type SocialLink = {
-  platform: string;
-  url: string;
-};
+import { entityTypes, linkTypes } from '@/config/constants';
+import type { SocialLink } from '@/types/public';
 
-// Entities table (similar to your groups table but simplified)
+export const linkTypeEnum = pgEnum('link_type', linkTypes);
+export const entityTypeEnum = pgEnum('entity_type', entityTypes);
+
 export const entities = pgTable('entities', {
   id: uuid('id').defaultRandom().primaryKey(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
   name: varchar('name').notNull(),
+  type: entityTypeEnum('type').notNull(),
   description: text('description'),
+  location: json('location'),
   logo: varchar('logo'),
-  banner: varchar('banner'),
-  verified: boolean('verified').notNull().default(false),
   links: json('links').$type<SocialLink[]>().notNull().default([]),
+  email: varchar('email'),
+  phone: varchar('phone'),
+  avatar: varchar('avatar'),
+  banner: varchar('banner'),
 });
 
-// Profiles table (similar to your users table but simplified)
-export const profiles = pgTable('profiles', {
+export const users = pgTable('users', {
   id: uuid('id').defaultRandom().primaryKey(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
-  name: varchar('name'),
-  avatar: varchar('avatar'),
-  walletAddress: varchar('wallet_address').notNull().unique(),
-  entityId: uuid('entity_id').references(() => entities.id, { onDelete: 'set null' }),
-  isAdmin: boolean('is_admin').default(false).notNull(),
-  links: json('links').$type<SocialLink[]>().notNull().default([]),
+  walletAddress: varchar('wallet_address').unique().notNull(),
+  entityId: uuid('entity_id')
+    .references(() => entities.id, { onDelete: 'cascade' })
+    .notNull(),
 });
 
-// Relations
-export const profilesRelations = relations(profiles, ({ one }) => ({
+// Table to track which user created which entity
+export const entityCreators = pgTable(
+  'entity_creators',
+  {
+    entityId: uuid('entity_id')
+      .references(() => entities.id, { onDelete: 'cascade' })
+      .notNull(),
+    userId: uuid('user_id').references(() => users.id, { onDelete: 'set null' }),
+  },
+  (table) => {
+    return {
+      pk: primaryKey({ columns: [table.entityId, table.userId] }),
+    };
+  }
+);
+
+// Define relations
+export const userRelations = relations(users, ({ one, many }) => ({
   entity: one(entities, {
-    fields: [profiles.entityId],
+    fields: [users.entityId],
     references: [entities.id],
+  }),
+  createdEntities: many(entityCreators),
+}));
+
+export const entityRelations = relations(entities, ({ many }) => ({
+  users: many(users),
+  creators: many(entityCreators),
+}));
+
+export const entityCreatorRelations = relations(entityCreators, ({ one }) => ({
+  entity: one(entities, {
+    fields: [entityCreators.entityId],
+    references: [entities.id],
+  }),
+  user: one(users, {
+    fields: [entityCreators.userId],
+    references: [users.id],
   }),
 }));
 
-export const entitiesRelations = relations(entities, ({ many }) => ({
-  profiles: many(profiles),
-}));
-
 // Type inference
+export type User = typeof users.$inferSelect;
+export type NewUser = typeof users.$inferInsert;
+
 export type Entity = typeof entities.$inferSelect;
 export type NewEntity = typeof entities.$inferInsert;
 
-export type Profile = typeof profiles.$inferSelect;
-export type NewProfile = typeof profiles.$inferInsert;
+export type EntityCreator = typeof entityCreators.$inferSelect;
+export type NewEntityCreator = typeof entityCreators.$inferInsert;
