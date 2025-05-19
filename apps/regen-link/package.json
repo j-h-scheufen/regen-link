@@ -20,12 +20,12 @@
     "@react-aria/visually-hidden": "^3.8.15",
     "@silk-wallet/silk-interface-core": "^0.4.0",
     "@silk-wallet/silk-wallet-sdk": "^0.4.0",
-    "@tanstack/react-query": "^5.75.5",
+    "@tanstack/react-query": "^5.76.1",
     "accept-language": "^3.0.20",
     "axios": "^1.9.0",
     "clsx": "^2.1.1",
-    "framer-motion": "^12.10.4",
-    "i18next": "^25.1.2",
+    "framer-motion": "^12.12.1",
+    "i18next": "^25.2.0",
     "i18next-browser-languagedetector": "^8.1.0",
     "i18next-resources-to-backend": "^1.2.1",
     "intl-messageformat": "^10.7.16",
@@ -40,8 +40,8 @@
     "react-i18next": "^15.5.1",
     "siwe": "^3.0.0",
     "tailwind-merge": "^2.5.2",
-    "viem": "^2.29.1",
-    "wagmi": "^2.15.2"
+    "viem": "^2.29.4",
+    "wagmi": "^2.15.4"
   },
   "devDependencies": {
     "@biomejs/biome": "1.5.3",
