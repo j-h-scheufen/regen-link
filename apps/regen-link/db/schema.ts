@@ -13,8 +13,8 @@ import {
 import { entityTypes, linkTypes } from '@/config/constants';
 import type { SocialLink } from '@/types/public';
 
-export const linkTypeEnum = pgEnum('link_type', linkTypes);
 export const entityTypeEnum = pgEnum('entity_type', entityTypes);
+export const linkTypeEnum = pgEnum('link_type', linkTypes);
 
 export const entities = pgTable('entities', {
   id: uuid('id').defaultRandom().primaryKey(),
@@ -35,11 +35,8 @@ export const entities = pgTable('entities', {
 export const users = pgTable('users', {
   id: uuid('id').defaultRandom().primaryKey(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
-  updatedAt: timestamp('updated_at').notNull().defaultNow(),
   walletAddress: varchar('wallet_address').unique().notNull(),
-  entityId: uuid('entity_id')
-    .references(() => entities.id, { onDelete: 'cascade' })
-    .notNull(),
+  entityId: uuid('entity_id').references(() => entities.id, { onDelete: 'set null' }),
 });
 
 // Table to track which user created which entity
@@ -49,7 +46,9 @@ export const entityCreators = pgTable(
     entityId: uuid('entity_id')
       .references(() => entities.id, { onDelete: 'cascade' })
       .notNull(),
-    userId: uuid('user_id').references(() => users.id, { onDelete: 'set null' }),
+    userId: uuid('user_id')
+      .references(() => users.id)
+      .notNull(),
   },
   (table) => {
     return {
@@ -83,12 +82,11 @@ export const entityCreatorRelations = relations(entityCreators, ({ one }) => ({
   }),
 }));
 
-// Type inference
-export type User = typeof users.$inferSelect;
-export type NewUser = typeof users.$inferInsert;
+export type SelectUser = typeof users.$inferSelect;
+export type InsertUser = typeof users.$inferInsert;
 
-export type Entity = typeof entities.$inferSelect;
-export type NewEntity = typeof entities.$inferInsert;
+export type SelectEntity = typeof entities.$inferSelect;
+export type InsertEntity = typeof entities.$inferInsert;
 
-export type EntityCreator = typeof entityCreators.$inferSelect;
-export type NewEntityCreator = typeof entityCreators.$inferInsert;
+export type SelectEntityCreator = typeof entityCreators.$inferSelect;
+export type InsertEntityCreator = typeof entityCreators.$inferInsert;

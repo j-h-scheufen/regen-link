@@ -1,12 +1,25 @@
-export const linkTypes = ['twitter', 'facebook', 'instagram', 'linkedin'] as const;
+export enum EntityType {
+  Human = 'human',
+  Organization = 'organization',
+  Project = 'project',
+}
 
-export const entityTypes = ['Project', 'Hub', 'Platform', 'Human'] as const;
+export enum LinkType {
+  Website = 'website',
+  Twitter = 'twitter',
+  Github = 'github',
+  LinkedIn = 'linkedin',
+}
+
+// readonly string arrays of enums
+export const entityTypes = Object.values(EntityType) as [string, ...string[]];
+export const linkTypes = Object.values(LinkType) as [string, ...string[]];
 
 export const validFileExtensions = { image: ['jpg', 'gif', 'png', 'jpeg', 'svg', 'webp'] } as const;
 
 export const linkBaseUrls = [
   {
-    type: 'twitter',
+    type: LinkType.Twitter,
     baseUrls: ['twitter.com', 'twitter.co', 'x.com', 'twitterinc.com'],
   },
   {
@@ -18,7 +31,7 @@ export const linkBaseUrls = [
     baseUrls: ['instagram.com', 'ig.me'],
   },
   {
-    type: 'linkedin',
+    type: LinkType.LinkedIn,
     baseUrls: ['linkedin.com', 'linkedin.cn'],
   },
 ];

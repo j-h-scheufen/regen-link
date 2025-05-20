@@ -3,7 +3,7 @@
 type ConfigType = {
   appUrl: string;
   databaseUrl: string;
-  nextAuthSecret?: string;
+  nextAuthSecret: string;
 };
 
 const isServer = typeof window === 'undefined';
@@ -21,8 +21,8 @@ export const getBaseUrl = () => {
 
 const ENV: ConfigType = {
   appUrl: required(process.env.NEXT_PUBLIC_APP_URL, 'NEXT_PUBLIC_APP_URL'),
-  databaseUrl: required(process.env.DATABASE_URL, 'DATABASE_URL'),
-  nextAuthSecret: isServer ? required(process.env.NEXTAUTH_SECRET, 'NEXTAUTH_SECRET') : undefined,
+  databaseUrl: isServer ? required(process.env.DATABASE_URL, 'DATABASE_URL') : '',
+  nextAuthSecret: isServer ? required(process.env.NEXTAUTH_SECRET, 'NEXTAUTH_SECRET') : '',
 };
 
 function required(value: string | undefined, name: string): string {

@@ -4,6 +4,7 @@ import { cookies } from 'next/headers';
 import { SiweMessage } from 'siwe';
 
 import ENV from '@/config/environment';
+import { getUserSessionData, insertUser } from '@/db/utils';
 import { PATHS } from './constants';
 
 const nextAuthUrl =
@@ -26,7 +27,7 @@ const providers = [
     },
 
     // Note: 'req' is not used atm, but the nonce should come from its headers. See problem and workaround below
-    // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+    // biome-ignore lint/correctness/noUnusedVariables: current workaround in place
     async authorize(credentials, req: RequestInternal['headers']) {
       if (!credentials) {
         return null;
@@ -55,26 +56,25 @@ const providers = [
         const result = await siwe.verify(verificationParams);
 
         if (result.success) {
-          // let user = await fetchSessionData(siwe.address);
-          // if (!user) {
-          //   // Users are automatically created when they sign in, because all we need is their wallet address
-          //   const { id, walletAddress, isGlobalAdmin } = await insertUser({
-          //     id: uuidv4(),
-          //     walletAddress: siwe.address,
-          //   });
-          //   user = { id, walletAddress, isGlobalAdmin: isGlobalAdmin || false };
-          // }
-          // return {
-          //   id: user.id,
-          //   walletAddress: user.walletAddress,
-          //   isGlobalAdmin: user.isGlobalAdmin,
-          // };
-          return { id: siwe.address };
+          let userSession = await getUserSessionData(siwe.address);
+
+          if (!userSession) {
+            // Users are automatically created when they sign in, because all we need is their wallet address
+            const newUser = await insertUser({
+              walletAddress: siwe.address,
+            });
+            userSession = {
+              id: newUser.id,
+              walletAddress: newUser.walletAddress,
+              entityId: null,
+            };
+          }
+          return userSession;
         }
 
         return null;
-      } catch (e) {
-        console.error(e);
+      } catch (error) {
+        console.error('Error authorizing user:', error);
         return null;
       }
     },
@@ -89,13 +89,12 @@ export const nextAuthOptions: AuthOptions = {
   },
   secret: ENV.nextAuthSecret,
   callbacks: {
+    // see also /types/next-auth.d.ts
     async jwt({ token, user }) {
-      // Initial sign in persists the UserSession in the token
       if (user) return { ...token, user };
       return token;
     },
     async session({ session, token }) {
-      // Forward properties to the client
       if (token.user) {
         session.user = { ...session.user, ...token.user };
       }
