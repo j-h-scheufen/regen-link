@@ -44,12 +44,9 @@ importers:
       '@react-aria/visually-hidden':
         specifier: ^3.8.15
         version: 3.8.22(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@silk-wallet/silk-interface-core':
-        specifier: ^0.4.0
-        version: 0.4.0
       '@silk-wallet/silk-wallet-sdk':
-        specifier: ^0.4.0
-        version: 0.4.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+        specifier: ^0.5.0
+        version: 0.5.0(@types/react@19.1.3)(bufferutil@4.0.9)(react@19.1.0)(typescript@5.8.3)(utf-8-validate@5.0.10)
       '@tanstack/react-query':
         specifier: ^5.76.1
         version: 5.76.1(react@19.1.0)
@@ -2942,8 +2939,8 @@ packages:
     resolution: {integrity: sha512-ZdH64U/7RW7NkRM9qdPVQuoWjNgi+ZyHSfHxuXB7lExjSCAu6qGZiXvPRztO448Aajw0obU2BGCtGRdtDB2l0g==}
     engines: {node: '>=18.0.0'}
 
-  '@silk-wallet/silk-wallet-sdk@0.4.0':
-    resolution: {integrity: sha512-x4MBaILK0so5jBCEo5YkV0kemCRuDuEneKCKK6KM7Wure6ssooVzGW65KUQdnd5pnY5Z7vc/eFKbRlKJHTd8Og==}
+  '@silk-wallet/silk-wallet-sdk@0.5.0':
+    resolution: {integrity: sha512-GX2WnnZTT0uY5C+HzBVv6HcS9Y3WmsPLCma/twBD4x37aIzdmi08psMTGArziFCdt/uBsdexnTRpG/SGSKyAGQ==}
     engines: {node: '>=18.0.0'}
 
   '@socket.io/component-emitter@3.1.2':
@@ -9108,8 +9105,8 @@ snapshots:
     dependencies:
       '@ethereumjs/tx': 4.2.0
       '@types/debug': 4.1.12
-      debug: 4.4.0
-      semver: 7.7.1
+      debug: 4.4.1
+      semver: 7.7.2
       superstruct: 1.0.4
     transitivePeerDependencies:
       - supports-color
@@ -10306,18 +10303,41 @@ snapshots:
 
   '@silk-wallet/silk-interface-core@0.4.0': {}
 
-  '@silk-wallet/silk-wallet-sdk@0.4.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
+  '@silk-wallet/silk-wallet-sdk@0.5.0(@types/react@19.1.3)(bufferutil@4.0.9)(react@19.1.0)(typescript@5.8.3)(utf-8-validate@5.0.10)':
     dependencies:
       '@metamask/rpc-errors': 5.1.1
       '@silk-wallet/silk-constants': 0.3.0
       '@silk-wallet/silk-interface-core': 0.4.0
+      '@walletconnect/ethereum-provider': 2.20.2(@types/react@19.1.3)(bufferutil@4.0.9)(react@19.1.0)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.24.3)
       ethers: 5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       events: 3.3.0
       zod: 3.24.3
       zod-validation-error: 1.5.0(zod@3.24.3)
     transitivePeerDependencies:
+      - '@azure/app-configuration'
+      - '@azure/cosmos'
+      - '@azure/data-tables'
+      - '@azure/identity'
+      - '@azure/keyvault-secrets'
+      - '@azure/storage-blob'
+      - '@capacitor/preferences'
+      - '@deno/kv'
+      - '@netlify/blobs'
+      - '@planetscale/database'
+      - '@react-native-async-storage/async-storage'
+      - '@types/react'
+      - '@upstash/redis'
+      - '@vercel/blob'
+      - '@vercel/kv'
+      - aws4fetch
       - bufferutil
+      - db0
+      - encoding
+      - ioredis
+      - react
       - supports-color
+      - typescript
+      - uploadthing
       - utf-8-validate
 
   '@socket.io/component-emitter@3.1.2': {}
@@ -12767,8 +12787,8 @@ snapshots:
   ox@0.6.7(typescript@5.8.3)(zod@3.24.3):
     dependencies:
       '@adraffy/ens-normalize': 1.11.0
-      '@noble/curves': 1.8.1
-      '@noble/hashes': 1.7.1
+      '@noble/curves': 1.9.1
+      '@noble/hashes': 1.8.0
       '@scure/bip32': 1.6.2
       '@scure/bip39': 1.5.4
       abitype: 1.0.8(typescript@5.8.3)(zod@3.24.3)
@@ -13386,7 +13406,8 @@ snapshots:
     dependencies:
       lru-cache: 6.0.0
 
-  semver@7.7.1: {}
+  semver@7.7.1:
+    optional: true
 
   semver@7.7.2: {}
 

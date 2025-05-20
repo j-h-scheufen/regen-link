@@ -21,8 +21,7 @@
     "@heroui/theme": "^2.4.15",
     "@react-aria/ssr": "^3.9.5",
     "@react-aria/visually-hidden": "^3.8.15",
-    "@silk-wallet/silk-interface-core": "^0.4.0",
-    "@silk-wallet/silk-wallet-sdk": "^0.4.0",
+    "@silk-wallet/silk-wallet-sdk": "^0.5.0",
     "@tanstack/react-query": "^5.76.1",
     "accept-language": "^3.0.20",
     "axios": "^1.9.0",
@@ -63,7 +62,8 @@
     "postcss-preset-env": "^9.3.0",
     "tailwind-variants": "^0.2.1",
     "tailwindcss": "3.4.10",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "pino-pretty": "^10.0.0"
   },
   "overrides": {
     "@types/react": "19.1.3",

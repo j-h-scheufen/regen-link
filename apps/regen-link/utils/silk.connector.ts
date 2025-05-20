@@ -2,11 +2,11 @@ import { ChainNotConfiguredError, createConnector } from '@wagmi/core';
 import { SwitchChainError, UserRejectedRequestError, getAddress } from 'viem';
 
 import { type CredentialType, SILK_METHOD } from '@silk-wallet/silk-interface-core';
-import { initSilk } from '@silk-wallet/silk-wallet-sdk';
-import type {
-  InitSilkOptions,
-  SilkEthereumProviderInterface,
-} from '@silk-wallet/silk-wallet-sdk/dist/lib/provider/types';
+import {
+  type InitSilkOptions,
+  type SilkEthereumProviderInterface,
+  initSilk,
+} from '@silk-wallet/silk-wallet-sdk';
 
 // For reference: WAGMI connector event map: wagmi/packages/core/src/connectors/createConnector.ts
 // type ConnectorEventMap = {
@@ -27,6 +27,8 @@ import type {
  */
 export default function silk(options?: InitSilkOptions) {
   let silkProvider: SilkEthereumProviderInterface | null = null;
+
+  console.info('Initializing Silk Connector with options:', options);
 
   return createConnector<SilkEthereumProviderInterface>((config) => {
     return {
@@ -133,10 +135,11 @@ export default function silk(options?: InitSilkOptions) {
       },
 
       async disconnect(): Promise<void> {
-        const provider = await this.getProvider();
-        provider.uiMessageManager.removeListener('accountsChanged', this.onAccountsChanged);
-        provider.uiMessageManager.removeListener('chainChanged', this.onChainChanged);
-        provider.uiMessageManager.removeListener('disconnect', this.onDisconnect);
+        // TODO: reimplement once the SilkProvider is fully 1193-compliant
+        // const provider = await this.getProvider();
+        // provider.removeListener('accountsChanged', this.onAccountsChanged);
+        // provider.removeListener('chainChanged', this.onChainChanged);
+        // provider.removeListener('disconnect', this.onDisconnect);
       },
 
       async requestEmail(): Promise<unknown> {

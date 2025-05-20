@@ -26,14 +26,14 @@ export const silkInitOptions: InitSilkOptions = {
   useStaging: true,
   config: {
     styles: { darkMode: true },
-    // allowedSocials: ['google'],
-    // authenticationMethods: ['email', 'social'],
+    allowedSocials: ['google'],
+    authenticationMethods: ['email', 'social'],
   },
   project: {
     name: 'Regen Link',
     // logo: '',
     // origin: getOrigin(),
-    //    projectId:
+    // projectId:
     // termsOfServiceUrl: `${baseUrl}/terms-of-service`,
     // privacyPolicyUrl: `${baseUrl}/privacy-policy`,
   },
