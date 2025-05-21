@@ -12,13 +12,9 @@ import { WagmiProvider } from 'wagmi';
 import { i18n } from '@/app/i18n/client';
 import { QueryConfig } from '@/config/constants';
 import wagmiConfig from '@/config/wagmi';
-declare module '@react-types/shared' {
-  interface RouterConfig {
-    routerOptions: NonNullable<Parameters<ReturnType<typeof useRouter>['push']>[1]>;
-  }
-}
 
 export function Providers({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -30,7 +26,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
         },
       })
   );
-  const router = useRouter();
 
   return (
     <I18nextProvider i18n={i18n}>

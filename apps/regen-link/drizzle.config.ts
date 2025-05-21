@@ -5,9 +5,9 @@ import ENV from './config/environment';
 export default {
   schema: './db/schema.ts',
   out: './db/migrations',
-  driver: 'pg',
+  dialect: 'postgresql',
   dbCredentials: {
-    connectionString: ENV.databaseUrl,
+    url: ENV.databaseUrl,
   },
   verbose: true,
   strict: true,
