@@ -1,6 +1,6 @@
-import { DefaultSession } from 'next-auth';
+import type { DefaultSession } from 'next-auth';
 
-import { UserSession } from './public';
+import type { UserSession } from './public';
 
 /**
  * Extends core next-auth types with custom attributes to store app-specific information in the user session.

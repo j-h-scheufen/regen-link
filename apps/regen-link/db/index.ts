@@ -15,7 +15,7 @@ const drizzleClient = drizzle(client, {
 });
 
 declare global {
-  // biome-ignore lint/style/noVar: <explanation>
+  // biome-ignore lint/style/noVar: Next.js requires var for global declarations
   var database: PostgresJsDatabase<typeof schema> | undefined;
 }
 
