@@ -1,4 +1,4 @@
-import type { InitSilkOptions } from '@silk-wallet/silk-wallet-sdk/dist/lib/provider/types';
+import type { InitSilkOptions } from '@silk-wallet/silk-wallet-sdk';
 import { http, type Config, createConfig } from 'wagmi';
 import { type Chain, localhost, mainnet } from 'wagmi/chains';
 
