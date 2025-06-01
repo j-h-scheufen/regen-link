@@ -1,15 +1,11 @@
-// tailwind.config.js
-const { heroui } = require('@heroui/react');
-const { withTV } = require('tailwind-variants/transformer');
-const defaultTheme = require('tailwindcss/defaultTheme');
+import { heroui } from '@heroui/react';
+import { withTV } from 'tailwind-variants/transformer';
+import defaultTheme from 'tailwindcss/defaultTheme';
 
-/** @type {import('tailwindcss').Config} */
-module.exports = withTV({
+export default withTV({
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    // make sure it's pointing to the ROOT node_module as HeroUI is being hoisted
     '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
@@ -103,6 +99,5 @@ module.exports = withTV({
         },
       },
     }),
-    require('@tailwindcss/typography'),
   ],
 });

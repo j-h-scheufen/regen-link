@@ -17,8 +17,6 @@
   },
   "dependencies": {
     "@heroui/react": "^2.7.8",
-    "@heroui/system": "^2.4.15",
-    "@heroui/theme": "^2.4.15",
     "@react-aria/ssr": "^3.9.5",
     "@react-aria/visually-hidden": "^3.8.23",
     "@silk-wallet/silk-wallet-sdk": "^0.6.0",
@@ -43,7 +41,6 @@
     "react-dom": "19.1.0",
     "react-i18next": "^15.5.2",
     "siwe": "^3.0.0",
-    "tailwind-merge": "^2.6.0",
     "viem": "^2.30.5",
     "wagmi": "^2.15.4"
   },
@@ -51,7 +48,6 @@
     "@biomejs/biome": "1.9.4",
     "@next/bundle-analyzer": "15.3.2",
     "@svgr/webpack": "^8.1.0",
-    "@tailwindcss/typography": "^0.5.14",
     "@types/lodash": "^4.17.17",
     "@types/node": "22.15.21",
     "@types/react": "19.1.6",
