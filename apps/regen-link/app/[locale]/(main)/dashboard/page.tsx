@@ -1,8 +1,7 @@
 'use client';
 
-import { Button } from '@heroui/react';
-
 import { useTranslation } from '@/app/i18n/client';
+import { PageExplainer, PageTitle, PrimaryButton } from '@/components/simple';
 import useAuth from '@/hooks/useAuth';
 
 export default function DashboardPage() {
@@ -12,15 +11,13 @@ export default function DashboardPage() {
   return (
     <section className="pt-16 sm:pt-24">
       <div className="min-h-[120px]">
-        <h1 className="page-title">{t('page.title')}</h1>
+        <PageTitle>{t('page.title')}</PageTitle>
       </div>
 
-      <p className="page-explainer">{t('page.description')}</p>
+      <PageExplainer>{t('page.description')}</PageExplainer>
 
       <div className="mt-24 sm:mt-32">
-        <Button className="primary-button" size="lg" radius="full" onPress={logout}>
-          {t('button.logout')}
-        </Button>
+        <PrimaryButton onPress={logout}>{t('button.logout')}</PrimaryButton>
       </div>
     </section>
   );

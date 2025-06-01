@@ -2,7 +2,7 @@ import { Trans } from 'react-i18next/TransWithoutContext';
 
 import type { NextPageProps } from '@/app/[locale]/layout';
 import { createTranslation } from '@/app/i18n/server';
-import { HomePageButtons } from '@/components/simple';
+import { HomePageButtons, PageExplainer, PageTitle } from '@/components/simple';
 
 export default async function Home({ params }: NextPageProps) {
   const locale = (await params).locale;
@@ -11,7 +11,7 @@ export default async function Home({ params }: NextPageProps) {
   return (
     <section className="h-full flex flex-col justify-center">
       <div className="min-h-[120px] flex flex-col justify-center">
-        <h1 className="page-title">
+        <PageTitle>
           <Trans
             t={t}
             i18nKey="page.title"
@@ -19,10 +19,10 @@ export default async function Home({ params }: NextPageProps) {
               nbsp: <span className="whitespace-nowrap" />,
             }}
           />
-        </h1>
+        </PageTitle>
       </div>
 
-      <p className="page-explainer">{t('page.description')}</p>
+      <PageExplainer>{t('page.description')}</PageExplainer>
 
       <HomePageButtons />
 

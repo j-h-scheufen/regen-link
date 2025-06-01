@@ -3,6 +3,7 @@
 import { Button, Link } from '@heroui/react';
 
 import { useTranslation } from '@/app/i18n/client';
+import { PrimaryButton } from '@/components/simple';
 import { PATHS } from '@/config/constants';
 
 export function HomePageButtons() {
@@ -10,9 +11,9 @@ export function HomePageButtons() {
 
   return (
     <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
-      <Button as={Link} href={PATHS.login} className="primary-button" size="lg" radius="full">
+      <PrimaryButton as={Link} href={PATHS.login}>
         {t('button.getStarted')}
-      </Button>
+      </PrimaryButton>
 
       <Button
         variant="bordered"

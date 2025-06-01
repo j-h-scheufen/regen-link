@@ -1,11 +1,11 @@
 'use client';
 
-import { Button } from '@heroui/react';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { useAccount } from 'wagmi';
 
 import { useTranslation } from '@/app/i18n/client';
+import { PageExplainer, PrimaryButton } from '@/components/simple';
 import { PATHS } from '@/config/constants';
 import useAuth from '@/hooks/useAuth';
 
@@ -27,34 +27,22 @@ export function SignInPanel() {
     <>
       {!address && (
         <>
-          <p className="page-explainer">{t('auth.connectExplainer')}</p>
+          <PageExplainer>{t('auth.connectExplainer')}</PageExplainer>
           <div className="mt-24 sm:mt-32">
-            <Button
-              className="primary-button"
-              size="lg"
-              radius="full"
-              onPress={connect}
-              isLoading={loading || isConnecting}
-            >
+            <PrimaryButton onPress={connect} isLoading={loading || isConnecting}>
               {t('auth.connectWallet')}
-            </Button>
+            </PrimaryButton>
           </div>
         </>
       )}
 
       {address && isConnected && !session && (
         <>
-          <p className="page-explainer">{t('auth.signInExplainer')}</p>
+          <PageExplainer>{t('auth.signInExplainer')}</PageExplainer>
           <div className="mt-24 sm:mt-32">
-            <Button
-              className="primary-button"
-              size="lg"
-              radius="full"
-              onPress={() => signIn()}
-              isLoading={loading}
-            >
+            <PrimaryButton onPress={() => signIn()} isLoading={loading}>
               {t('auth.signIn')}
-            </Button>
+            </PrimaryButton>
           </div>
         </>
       )}
