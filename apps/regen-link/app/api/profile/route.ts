@@ -2,7 +2,7 @@ import { eq } from 'drizzle-orm';
 import { isUndefined, omitBy } from 'lodash';
 import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 
 import { nextAuthOptions } from '@/config/next-auth';
 import { db } from '@/db';

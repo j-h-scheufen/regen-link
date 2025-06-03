@@ -12,6 +12,7 @@ import {
 
 import { entityTypes, linkTypes } from '@/config/constants';
 import type { SocialLink } from '@/types/public';
+import type { Feature } from 'maplibre-gl';
 
 export const entityTypeEnum = pgEnum('entity_type', entityTypes);
 export const linkTypeEnum = pgEnum('link_type', linkTypes);
@@ -23,7 +24,8 @@ export const entities = pgTable('entities', {
   name: varchar('name').notNull(),
   type: entityTypeEnum('type').notNull(),
   description: text('description'),
-  location: json('location'),
+  location: json('location').$type<[number, number]>(),
+  feature: json('feature').$type<Feature>(),
   logo: varchar('logo'),
   links: json('links').$type<SocialLink[]>().notNull().default([]),
   email: varchar('email'),

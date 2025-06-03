@@ -1,9 +1,10 @@
 // apps/regen-link/config/environment.ts
 
-type ConfigType = {
+type EnvVariables = {
   appUrl: string;
   databaseUrl: string;
   nextAuthSecret: string;
+  mapTilerKey: string;
 };
 
 const isServer = typeof window === 'undefined';
@@ -19,8 +20,9 @@ export const getBaseUrl = () => {
   return baseUrl;
 };
 
-const ENV: ConfigType = {
+const ENV: EnvVariables = {
   appUrl: required(process.env.NEXT_PUBLIC_APP_URL, 'NEXT_PUBLIC_APP_URL'),
+  mapTilerKey: required(process.env.NEXT_PUBLIC_MAPTILER_KEY, 'NEXT_PUBLIC_MAPTILER_KEY'),
   databaseUrl: isServer ? required(process.env.DATABASE_URL, 'DATABASE_URL') : '',
   nextAuthSecret: isServer ? required(process.env.NEXTAUTH_SECRET, 'NEXTAUTH_SECRET') : '',
 };
