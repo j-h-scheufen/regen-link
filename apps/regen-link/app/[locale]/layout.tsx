@@ -26,7 +26,7 @@ export default async function RootLayout({ params, children }: PropsWithChildren
     <html lang={lang}>
       <body
         className={clsx(
-          'dark min-h-screen antialiased bg-gradient',
+          'min-h-screen antialiased',
           fontSora.variable,
           fontInter.variable,
           fontFigtree.variable,
@@ -35,7 +35,7 @@ export default async function RootLayout({ params, children }: PropsWithChildren
       >
         <Providers>
           <div className="relative flex min-h-screen flex-col items-center">
-            <main className="flex-grow max-w-[800px]">{children}</main>
+            <main className="grow max-w-[800px]">{children}</main>
           </div>
         </Providers>
       </body>
