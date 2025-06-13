@@ -23,7 +23,7 @@ export const getOrigin = () => {
 };
 
 export const silkInitOptions: InitSilkOptions = {
-  useStaging: true,
+  useProd: true,
   config: {
     styles: { darkMode: true },
     allowedSocials: ['google'],
