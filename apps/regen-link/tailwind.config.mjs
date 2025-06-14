@@ -1,4 +1,4 @@
-import { heroui } from '@heroui/react';
+
 import defaultTheme from 'tailwindcss/defaultTheme';
 
 export default {

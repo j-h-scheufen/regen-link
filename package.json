@@ -17,11 +17,11 @@
   },
   "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee",
   "devDependencies": {
-    "@biomejs/biome": "1.5.3",
-    "@commitlint/cli": "^18.4.3",
-    "@commitlint/config-conventional": "^18.4.3",
+    "@biomejs/biome": "1.9.4",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "husky": "^9.1.6",
-    "lint-staged": "^15.5.2",
+    "lint-staged": "^16.1.1",
     "typescript": "^5.8.3"
   },
   "lint-staged": {
@@ -29,13 +29,6 @@
       "biome check --no-errors-on-unmatched",
       "biome format --write --no-errors-on-unmatched"
     ],
-    "*.{json,md}": [
-      "biome format --write --no-errors-on-unmatched"
-    ]
-  },
-  "pnpm": {
-    "overrides": {
-      "postcss": "8.4.31"
-    }
+    "*.{json,md}": ["biome format --write --no-errors-on-unmatched"]
   }
 }
