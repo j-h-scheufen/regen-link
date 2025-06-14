@@ -1,3 +1,4 @@
+import type { SilkEthereumProviderInterface } from '@silk-wallet/silk-wallet-sdk';
 import {
   getCsrfToken,
   getSession,
@@ -5,6 +6,7 @@ import {
   signOut as nextAuthSignOut,
 } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
+import { enqueueSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import { SiweMessage } from 'siwe';
 import { UserRejectedRequestError } from 'viem';
@@ -13,7 +15,6 @@ import { useAccount, useConnect, useDisconnect, useSignMessage } from 'wagmi';
 import { PATHS } from '@/config/constants';
 import { getDefaultChain, silkInitOptions } from '@/config/wagmi';
 import silk from '@/utils/silk.connector';
-import { enqueueSnackbar } from 'notistack';
 
 /**
  * Handles wagmi connect, signMessage, and logout using the Silk wallet.
@@ -21,7 +22,7 @@ import { enqueueSnackbar } from 'notistack';
  * all functions.
  * @returns
  */
-const useSignIn = () => {
+const useAuth = () => {
   const [state, setState] = useState<{
     loading?: boolean;
     nonce?: string;
@@ -96,8 +97,13 @@ const useSignIn = () => {
   };
 
   const logout = async () => {
-    return nextAuthSignOut().then(() => {
-      disconnect();
+    const silkConnector = connectors.find((connector) => connector.id === 'silk');
+    disconnect();
+    if (silkConnector) {
+      const provider = await silkConnector.getProvider();
+      await (provider as SilkEthereumProviderInterface).logout();
+    }
+    nextAuthSignOut().then(() => {
       setState({});
     });
   };
@@ -131,4 +137,4 @@ const useSignIn = () => {
   return { signIn, logout, connect, connectError, state };
 };
 
-export default useSignIn;
+export default useAuth;
